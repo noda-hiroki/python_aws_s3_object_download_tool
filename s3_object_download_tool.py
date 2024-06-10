@@ -20,17 +20,14 @@ try:
             bucket_region = input("s3_bucket_region:")
             #   アクセスキー、シークレットアクセスキー、リージョンを指定し、s3クライアントインスタンスを作成
             s3_client = boto3.client("s3", aws_access_key_id=access_key, aws_secret_access_key=secret_access_key, region_name=bucket_region)
-            #   指定したバケットのファイルをダウンロード
-            s3_client.download_file(bucket, file, file)
-            break
         elif select == "n":
             #   s3クライアントインスタンスを作成
             s3_client = boto3.client("s3")
-            #   指定したバケットのファイルをダウンロード
-            s3_client.download_file(bucket, file, file)
-            break
         else:
             continue
+        #   指定したバケットのファイルをダウンロード
+        s3_client.download_file(bucket, file, file)
+        break
 except ClientError as e:
     logging.error(e)
 input("続行するには何かキーを押してください...")
