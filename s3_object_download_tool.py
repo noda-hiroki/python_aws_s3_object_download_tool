@@ -12,7 +12,7 @@ def func_download_files(download_bucket_name: str, target_prefix: str) -> None:
                 #   アクセスキー、シークレットアクセスキー、リージョンを設定
                 access_key = input("access key:")
                 secret_access_key = input("secret_access_key:")
-                bucket_region = input("s3_bucket_region:")
+                bucket_region = input("s3_bucket_region(Example[Tokyo]: ap-northeast-1):")
                 #   アクセスキー、シークレットアクセスキー、リージョンを指定し、s3クライアントインスタンスを作成
                 s3_client = boto3.client("s3", aws_access_key_id=access_key, aws_secret_access_key=secret_access_key, region_name=bucket_region)
             elif select == "n":
@@ -46,7 +46,7 @@ try:
         if select_1 == "y":
             #   バケット名、プレフィックス、ダウンロード先のパスを入力
             bucket = input("bucket name:")
-            prefix = input("folder(prefix):")
+            prefix = input("prefix in s3 bucket(Example: log/security):")
             path = input("Download path:")
             #   カレントディレクトリを、ダウンロード先ディレクトリに移動
             os.chdir(path)
@@ -55,7 +55,7 @@ try:
         elif select_1 == "n":
             #   バケット名、ファイル名、ダウンロード先のパスを入力
             bucket = input("bucket name:")
-            file = input("file name:")
+            file = input("Key of file in s3 bucket(Example: text/test.txt):")
             path = input("Download path:")
             #   カレントディレクトリを、ダウンロード先ディレクトリに移動
             os.chdir(path)
@@ -65,7 +65,7 @@ try:
                     #   アクセスキー、シークレットアクセスキー、リージョンを設定
                     access_key = input("access key:")
                     secret_access_key = input("secret_access_key:")
-                    bucket_region = input("s3_bucket_region:")
+                    bucket_region = input("s3_bucket_region(Example[Tokyo]: ap-northeast-1):")
                     #   アクセスキー、シークレットアクセスキー、リージョンを指定し、s3クライアントインスタンスを作成
                     s3_client = boto3.client("s3", aws_access_key_id=access_key, aws_secret_access_key=secret_access_key, region_name=bucket_region)
                 elif select_2 == "n":
@@ -74,7 +74,8 @@ try:
                 else:
                     continue
                 #   ファイルをダウンロード
-                s3_client.download_file(bucket, file, file)
+                file_name = os.path.basename(file)
+                s3_client.download_file(bucket, file, file_name)
                 break
         else:
             continue
