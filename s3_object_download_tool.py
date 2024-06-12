@@ -42,7 +42,7 @@ def func_download_files(download_bucket_name: str, target_prefix: str) -> None:
 try:
     while True:
         #   条件分岐：プレフィックスを指定し、配下のファイルを全てダウンロードするか？
-        select_1 = input("Specify a prefix and download all files under it?(y/n)")
+        select_1 = input("Specify a prefix and download all files under it?(y/n):")
         if select_1 == "y":
             #   バケット名、プレフィックス、ダウンロード先のパスを入力
             bucket = input("bucket name:")
